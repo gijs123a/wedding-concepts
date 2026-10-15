@@ -44,17 +44,13 @@ a{color:inherit}
 @keyframes right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 
 .stage{position:relative;z-index:1;display:grid;place-items:center;perspective:1600px;margin:-.4em 0;padding:0 20px}
-.pcw{width:min(86vw,640px);aspect-ratio:4/3;position:relative;transform-style:preserve-3d;animation:land 1.5s var(--ease) both;filter:drop-shadow(0 30px 40px rgba(20,17,15,.28))}
+.pcw{width:min(86vw,640px);aspect-ratio:4/3;position:relative;transform-style:preserve-3d;animation:land 1.5s var(--ease) both;pointer-events:none}
+.shadow{position:absolute;inset:6px;box-shadow:0 30px 60px -10px rgba(20,17,15,.35);pointer-events:none}
 @keyframes land{from{transform:translateY(-80vh) rotateX(45deg) rotateZ(-10deg)}to{transform:none}}
-.pc{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .9s var(--ease);cursor:pointer}
+.pc{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .9s var(--ease);cursor:pointer;pointer-events:auto}
 .pc.flip{transform:rotateY(180deg) !important}
-.face{position:absolute;inset:0;backface-visibility:hidden;background:var(--white);padding:16px;
-  --r:7px;--s:24px;
-  mask:radial-gradient(circle at 50% 0,#0000 var(--r),#000 calc(var(--r) + .6px)) 50% 0/var(--s) 100% repeat-x,
-       radial-gradient(circle at 50% 100%,#0000 var(--r),#000 calc(var(--r) + .6px)) 50% 100%/var(--s) 100% repeat-x,
-       radial-gradient(circle at 0 50%,#0000 var(--r),#000 calc(var(--r) + .6px)) 0 50%/100% var(--s) repeat-y,
-       radial-gradient(circle at 100% 50%,#0000 var(--r),#000 calc(var(--r) + .6px)) 100% 50%/100% var(--s) repeat-y;
-  mask-composite:intersect;-webkit-mask-composite:source-in}
+.face{position:absolute;inset:0;backface-visibility:hidden;padding:16px}
+.perf{position:absolute;inset:0;width:100%;height:100%}
 .face.back{transform:rotateY(180deg)}
 .art{position:absolute;inset:16px;overflow:hidden;background:linear-gradient(180deg,var(--sun) 0%,var(--coral) 58%,var(--sky) 58.2%,#1C44B8 100%)}
 .art svg{position:absolute;inset:0;width:100%;height:100%}
@@ -69,7 +65,7 @@ a{color:inherit}
 .art h1 em{display:block;font-family:Newsreader,serif;font-style:italic;font-weight:400;font-size:.55em;letter-spacing:0;color:var(--sun)}
 
 .back{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;padding:32px;font-style:italic;font-size:clamp(.9rem,1.7vw,1.2rem)}
-.back .msg{border-right:2px solid rgba(20,17,15,.15);padding-right:22px}
+.back .msg{position:relative;border-right:2px solid rgba(20,17,15,.15);padding-right:22px}
 .back .msg p{margin-bottom:.7em}
 .back .addr{position:relative}
 .stamps{position:absolute;top:0;right:0;display:flex;gap:8px}
@@ -82,7 +78,6 @@ a{color:inherit}
 
 .sticker{position:absolute;right:calc(50% - min(43vw,320px) - 44px);bottom:-34px;width:140px;height:140px;border-radius:50%;background:var(--sun);color:var(--ink);text-decoration:none;border:6px solid var(--paper);box-shadow:0 10px 30px -10px rgba(20,17,15,.35);z-index:3;display:grid;place-items:center;text-align:center;font-family:Unbounded,sans-serif;font-weight:800;line-height:1.1;font-size:.95rem;transform:rotate(12deg) scale(0);animation:pop .9s var(--ease) 1.4s forwards;transition:transform .3s var(--ease)}
 .sticker small{display:block;font-weight:300;font-size:.8em}
-.sticker:hover{transform:rotate(4deg) scale(1.06)}
 @keyframes pop{to{transform:rotate(12deg) scale(1)}}
 .hint{position:relative;z-index:1;text-align:center;color:var(--soft);font-style:italic;margin:28px 0 0;animation:fadein 1s var(--ease) 2.2s both}
 @keyframes fadein{from{opacity:0}to{opacity:1}}
@@ -138,7 +133,7 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
   .row .t{font-size:clamp(3.4rem,17vw,5rem)}
   .stage{margin:-.2em 0;padding:0 12px}
   .pcw{width:100%;aspect-ratio:1}
-  .face{padding:10px;--r:5px;--s:18px}
+  .face{padding:10px}
   .art{inset:10px}
   .art h1{left:12px;bottom:8px}
   .art .tl{left:12px;top:10px}.art .tr{right:12px;top:10px}
@@ -191,8 +186,10 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
 
   <div class="stage">
     <div class="pcw">
+      <div class="shadow" aria-hidden="true"></div>
       <div class="pc" id="pc" role="button" tabindex="0" aria-label="Draai de postzegel om. Flip the stamp.">
         <div class="face front">
+          <svg class="perf" aria-hidden="true"></svg>
           <div class="art">
             <svg viewBox="0 0 600 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
               <g class="rays" fill="#FFE9A3" opacity=".9">
@@ -214,6 +211,7 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
           </div>
         </div>
         <div class="face back">
+          <svg class="perf" aria-hidden="true"></svg>
           <div class="msg">
             <p>Lieve familie en vrienden, op zaterdag 12 juni 2027 trouwen wij in d'Swarte Walvis aan de Zaan. Kom je?</p>
             <p>Dear family and friends, on Saturday 12 June 2027 we marry at d'Swarte Walvis on the river Zaan. Will you come?</p>
@@ -304,6 +302,24 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
     pc.addEventListener('mousemove',function(e){if(flipped)return;var r=pc.getBoundingClientRect();var x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;pc.style.transform='rotateY('+(x*16)+'deg) rotateX('+(-y*12)+'deg)'});
     pc.addEventListener('mouseleave',function(){if(!flipped)pc.style.transform=''});
   }
+  // perforated edges, drawn as plain SVG so the 3D flip stays reliable
+  var perfs=[].slice.call(document.querySelectorAll('.perf'));
+  function perforate(){
+    var w=pc.clientWidth,h=pc.clientHeight,r=w<480?5:7,sp=w<480?18:24,ns='http://www.w3.org/2000/svg';
+    perfs.forEach(function(svg,k){
+      while(svg.firstChild)svg.removeChild(svg.firstChild);
+      svg.setAttribute('viewBox','0 0 '+w+' '+h);
+      var id='perf'+k,defs=document.createElementNS(ns,'defs'),m=document.createElementNS(ns,'mask');m.id=id;
+      var base=document.createElementNS(ns,'rect');base.setAttribute('width',w);base.setAttribute('height',h);base.setAttribute('fill','#fff');m.appendChild(base);
+      function hole(x,y){var c=document.createElementNS(ns,'circle');c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',r);c.setAttribute('fill','#000');m.appendChild(c)}
+      var nx=Math.round(w/sp),ny=Math.round(h/sp),i;
+      for(i=0;i<=nx;i++){hole(i*w/nx,0);hole(i*w/nx,h)}
+      for(i=1;i<ny;i++){hole(0,i*h/ny);hole(w,i*h/ny)}
+      defs.appendChild(m);svg.appendChild(defs);
+      var paper=document.createElementNS(ns,'rect');paper.setAttribute('width',w);paper.setAttribute('height',h);paper.setAttribute('fill','#FFFFFF');paper.setAttribute('mask','url(#'+id+')');svg.appendChild(paper);
+    });
+  }
+  perforate();addEventListener('resize',perforate);
   var target=new Date('2027-06-12T14:00:00+02:00').getTime();
   var days=String(Math.max(0,Math.ceil((target-Date.now())/864e5)));
   document.getElementById('pm').textContent=days;document.getElementById('days').textContent=days;
