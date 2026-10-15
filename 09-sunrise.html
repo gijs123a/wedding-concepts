@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gijs & Shiela, 12 juni 2027</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500;800&family=Figtree:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFFDF7; --sun:#FFC53D; --coral:#FF5A3C; --sky:#2F6BFF; --ink:#14110F; --soft:#6B655D;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font-family:Figtree,system-ui,sans-serif;font-size:17px;line-height:1.6;overflow-x:hidden}
+h1,h2,h3{font-family:Unbounded,sans-serif;margin:0;line-height:1.05}
+p{margin:0 0 1em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--sky);outline-offset:4px}
+.wrap{max-width:1180px;margin:0 auto;padding:0 32px}
+
+/* Hero kinetic rows */
+.hero{position:relative;padding:40px 0 48px;overflow:hidden;min-height:min(100svh,860px);display:flex;flex-direction:column;justify-content:center}
+.row{white-space:nowrap;overflow:hidden;line-height:.9}
+.row .t{display:inline-flex;gap:.3em;font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(4.5rem,15vw,15rem);letter-spacing:-.03em;will-change:transform}
+.row.l .t{animation:left 30s linear infinite}
+.row.r .t{animation:right 30s linear infinite}
+.row .t span:nth-child(even){color:transparent;-webkit-text-stroke:3px var(--ink)}
+.row.l .t span:nth-child(odd){color:var(--sky)}
+.row.r .t span:nth-child(odd){color:var(--coral)}
+@keyframes left{to{transform:translateX(-50%)}}
+@keyframes right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
+.mid{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:24px;padding:12px 32px}
+.mid .d{font-family:Unbounded,sans-serif;font-weight:500;font-size:clamp(1rem,2.2vw,1.5rem)}
+.mid .d:last-child{text-align:right}
+.mid .d small{display:block;font-family:Figtree,sans-serif;font-weight:400;color:var(--soft);font-size:.95rem;margin-top:4px}
+.mark{width:clamp(110px,16vw,190px);height:auto;will-change:transform;transform:rotate(var(--rot,0deg))}
+.stamp{position:absolute;right:5%;bottom:6%;width:150px;height:150px;border-radius:50%;background:var(--sun);border:6px solid var(--paper);box-shadow:0 10px 30px -10px rgba(20,17,15,.35);z-index:3;display:grid;place-items:center;text-align:center;font-family:Unbounded,sans-serif;font-weight:800;line-height:1.05;font-size:1.1rem;transform:rotate(12deg) scale(0);animation:pop .9s var(--ease) 1.2s forwards}
+@keyframes pop{to{transform:rotate(12deg) scale(1)}}
+
+/* River path on the left */
+.river{position:fixed;left:0;top:0;height:100vh;width:60px;pointer-events:none;z-index:2}
+.river path{fill:none;stroke:var(--sky);stroke-width:3;stroke-linecap:round;stroke-dasharray:2000;stroke-dashoffset:2000}
+
+/* Sections */
+section{padding:120px 0}
+h2{font-size:clamp(2rem,5vw,3.8rem);font-weight:800;letter-spacing:-.02em;margin-bottom:.5em}
+.en{color:var(--soft)}
+.intro{display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:center}
+.intro p{font-size:1.15rem;max-width:48ch}
+.photo{aspect-ratio:4/5;border-radius:32px;background:linear-gradient(160deg,var(--sun),var(--coral));display:grid;place-items:center;font-style:italic;transform:rotate(-3deg);transition:transform .6s var(--ease)}
+.photo:hover{transform:rotate(0) scale(1.02)}
+
+/* Facts counters */
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;text-align:center}
+.facts div{padding:40px 16px;border:3px solid var(--ink);border-radius:28px}
+.facts b{display:block;font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(2.2rem,5vw,4rem);letter-spacing:-.02em}
+.facts span{color:var(--soft)}
+
+/* Programme cards */
+.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;perspective:1200px}
+.card{padding:28px 20px;border-radius:24px;background:var(--ink);color:var(--paper);min-height:200px;display:flex;flex-direction:column;justify-content:space-between;transform-style:preserve-3d;transition:transform .5s var(--ease),background .4s;opacity:0;translate:0 30px}
+.card.on{opacity:1;translate:0 0}
+.card:nth-child(2){background:var(--sky)}.card:nth-child(4){background:var(--coral)}.card:nth-child(5){background:var(--sun);color:var(--ink)}
+.card time{font-family:Unbounded,sans-serif;font-weight:800;font-size:1.6rem}
+.card b{display:block;font-weight:600;font-size:1.05rem;margin-top:24px}
+.card span{font-size:.9rem;opacity:.8}
+
+/* Countdown */
+.count{text-align:center}
+.count .n{font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(3rem,12vw,10rem);letter-spacing:-.04em;line-height:1;color:var(--coral)}
+.count p{font-size:1.2rem}
+
+/* RSVP */
+.rsvp{text-align:center;padding-bottom:160px}
+.btn{position:relative;display:inline-block;padding:24px 48px;border-radius:999px;font-family:Unbounded,sans-serif;font-weight:500;font-size:1.1rem;text-decoration:none;color:var(--ink);background:var(--paper);isolation:isolate;transition:transform .3s var(--ease)}
+.btn::before{content:"";position:absolute;inset:-4px;border-radius:inherit;background:conic-gradient(from var(--a,0deg),var(--sun),var(--coral),var(--sky),var(--sun));z-index:-1;animation:spin 3s linear infinite}
+.btn::after{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--paper);z-index:-1}
+.btn:hover{transform:scale(1.05)}
+@property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
+@keyframes spin{to{--a:360deg}}
+
+.reveal{opacity:0;translate:0 30px;transition:opacity .9s var(--ease),translate .9s var(--ease)}
+.reveal.on{opacity:1;translate:0 0}
+
+footer{text-align:center;padding:40px;color:var(--soft);border-top:3px solid var(--ink)}
+
+@media (max-width:860px){
+  .wrap{padding:0 20px}
+  .hero{padding:24px 0 32px}
+  .mid{grid-template-columns:1fr auto 1fr;padding:8px 16px;gap:10px}
+  .mid .d{font-size:.95rem}
+  .stamp{width:92px;height:92px;font-size:.72rem;right:3%;bottom:3%}
+  .river{display:none}
+  section{padding:72px 0}
+  .intro{grid-template-columns:1fr;gap:32px}
+  .facts{grid-template-columns:1fr;gap:12px}
+  .cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;padding-bottom:12px;margin:0 -20px;padding-left:20px;padding-right:20px}
+  .card{flex:0 0 72%;scroll-snap-align:start}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none !important;transition:none !important}
+  .stamp{transform:rotate(12deg) scale(1)}.card,.reveal{opacity:1;translate:0 0}
+}
+</style>
+</head>
+<body>
+
+<svg class="river" viewBox="0 0 60 1000" preserveAspectRatio="none" aria-hidden="true"><path d="M30 0 C 50 120, 10 240, 30 360 S 50 600, 30 720 S 10 940, 30 1000"/></svg>
+
+<header class="hero">
+  <div class="stamp" aria-hidden="true">12<br>juni<br>2027</div>
+  <div class="row l"><div class="t"><span>Gijs</span><span>Gijs</span><span>Gijs</span><span>Gijs</span><span>Gijs</span><span>Gijs</span><span>Gijs</span><span>Gijs</span></div></div>
+  <div class="mid">
+    <div class="d">Zaterdag 12 juni 2027<small>d'Swarte Walvis, Zaanse Schans</small></div>
+    <svg class="mark" viewBox="0 0 200 200" aria-label="Zon en molen">
+      <g transform="translate(100 100)">
+        <g fill="#FFC53D"><polygon points="0,-18 -8,-44 0,-94 8,-44" transform="rotate(45)"/><polygon points="0,-18 -8,-44 0,-94 8,-44" transform="rotate(135)"/><polygon points="0,-18 -8,-44 0,-94 8,-44" transform="rotate(225)"/><polygon points="0,-18 -8,-44 0,-94 8,-44" transform="rotate(315)"/></g>
+        <g stroke="#14110F" stroke-width="4" fill="none"><g id="s"><line x1="0" y1="-16" x2="0" y2="-96"/><rect x="-14" y="-94" width="14" height="66"/><line x1="-14" y1="-72" x2="0" y2="-72"/><line x1="-14" y1="-50" x2="0" y2="-50"/></g><use href="#s" transform="rotate(90)"/><use href="#s" transform="rotate(180)"/><use href="#s" transform="rotate(270)"/></g>
+        <circle r="17" fill="#FF5A3C"/><circle r="8" fill="#FFFDF7"/>
+      </g>
+    </svg>
+    <div class="d">Saturday 12 June 2027<small>Zaandijk, the Netherlands</small></div>
+  </div>
+  <div class="row r"><div class="t"><span>Shiela</span><span>Shiela</span><span>Shiela</span><span>Shiela</span><span>Shiela</span><span>Shiela</span><span>Shiela</span><span>Shiela</span></div></div>
+</header>
+
+<main>
+  <section class="wrap intro">
+    <div class="reveal">
+      <h2>Wij gaan trouwen</h2>
+      <p>Gijs uit Nederland, Shiela uit de Filipijnen. Op 12 juni 2027 brengen we beide families samen op de Zaanse Schans, in een oud pakhuis aan de Zaan.</p>
+      <p class="en">Gijs from the Netherlands, Shiela from the Philippines. On 12 June 2027 we bring both families together on the Zaanse Schans, in an old warehouse on the Zaan river. You are invited.</p>
+    </div>
+    <div class="photo reveal">foto / photo</div>
+  </section>
+
+  <section class="wrap">
+    <div class="facts">
+      <div class="reveal"><b data-count="10400" data-suffix=" km">0</b><span>tussen Zaandijk en Manila<br>between Zaandijk and Manila</span></div>
+      <div class="reveal"><b data-count="2">0</b><span>families, twee landen<br>families, two countries</span></div>
+      <div class="reveal"><b data-count="1">0</b><span>feest aan de Zaan<br>party on the Zaan</span></div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <h2 class="reveal">De dag <span class="en" style="font-weight:300">The day</span></h2>
+    <div class="cards">
+      <div class="card"><time>14:00</time><div><b>Ontvangst</b><span>Welcome</span></div></div>
+      <div class="card"><time>14:30</time><div><b>Ceremonie</b><span>Ceremony by the water</span></div></div>
+      <div class="card"><time>15:30</time><div><b>Toost</b><span>Toast and photos</span></div></div>
+      <div class="card"><time>18:00</time><div><b>Diner</b><span>Dutch and Filipino</span></div></div>
+      <div class="card"><time>20:30</time><div><b>Feest</b><span>Party until late</span></div></div>
+    </div>
+  </section>
+
+  <section class="wrap count">
+    <div class="n reveal" id="days">000</div>
+    <p class="reveal">dagen te gaan. days to go.</p>
+    <p class="en reveal">d'Swarte Walvis, Kalverringdijk 15, 1509 BT Zaandijk. Trein naar Zaandijk Zaanse Schans, 17 minuten vanaf Amsterdam Centraal. From Schiphol 25 minutes by taxi.</p>
+  </section>
+
+  <section class="wrap rsvp">
+    <h2 class="reveal">Kom je? <span class="en" style="font-weight:300">Are you coming?</span></h2>
+    <p class="reveal">Laat het ons voor 1 maart 2027 weten, met je eetwensen en of je iets wilt doen op de dag. Let us know before 1 March 2027, with food wishes and whether you want to do something on the day.</p>
+    <a class="btn reveal" href="#">Ja, ik kom / Yes</a>
+  </section>
+</main>
+<footer>Gijs &amp; Shiela, 12 juni 2027</footer>
+
+<script>
+(function(){
+  var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var mark=document.querySelector('.mark'),river=document.querySelector('.river path');
+  function onScroll(){
+    var y=scrollY,max=document.body.scrollHeight-innerHeight;
+    if(!rm)mark.style.setProperty('--rot',(y*0.15)+'deg');
+    river.style.strokeDashoffset=2000-2000*Math.min(1,y/Math.max(1,max));
+  }
+  addEventListener('scroll',onScroll,{passive:true});onScroll();
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;e.target.classList.add('on');io.unobserve(e.target);
+    var b=e.target.querySelector('[data-count]');if(b&&!b.dataset.done){b.dataset.done=1;var end=+b.dataset.count,suf=b.dataset.suffix||'',t0=performance.now();
+      (function step(t){var p=Math.min(1,(t-t0)/1400);p=1-Math.pow(1-p,3);b.textContent=Math.round(end*p).toLocaleString('nl-NL')+suf;if(p<1)requestAnimationFrame(step)})(t0);}
+  })},{threshold:.25});
+  document.querySelectorAll('.reveal,.card').forEach(function(el){io.observe(el)});
+  document.querySelectorAll('.card').forEach(function(el,i){el.style.transitionDelay=(i*0.1)+'s';
+    if(!rm){el.addEventListener('mousemove',function(e){var r=el.getBoundingClientRect();var x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;el.style.transform='rotateY('+(x*16)+'deg) rotateX('+(-y*16)+'deg) translateZ(10px)'});
+    el.addEventListener('mouseleave',function(){el.style.transform=''})}});
+  var target=new Date('2027-06-12T14:00:00+02:00').getTime();
+  document.getElementById('days').textContent=String(Math.max(0,Math.ceil((target-Date.now())/864e5)));
+})();
+</script>
+</body>
+</html>
