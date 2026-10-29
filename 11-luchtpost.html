@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;500;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400;1,6..72,500&display=swap" rel="stylesheet">
 <style>
 :root{
-  --paper:#FFFDF7; --white:#FFFFFF; --sun:#FFC53D; --coral:#FF5A3C; --sky:#2F6BFF; --ink:#14110F; --soft:#6B655D;
+  --paper:#F8F3EA; --white:#FFFFFF; --pink:#C82A63; --orange:#F28C38; --green:#2D5A3D; --blush:#EFB7C7; --ink:#2A2421; --soft:#6F6560;
   --ease:cubic-bezier(.16,1,.3,1);
 }
 *{box-sizing:border-box}
@@ -17,29 +17,29 @@ body{margin:0;background:var(--paper);color:var(--ink);font-family:Newsreader,Ge
 h1,h2,h3{font-family:Unbounded,sans-serif;margin:0;line-height:1.05}
 p{margin:0 0 1em}
 a{color:inherit}
-:focus-visible{outline:3px solid var(--sky);outline-offset:4px}
+:focus-visible{outline:3px solid var(--pink);outline-offset:4px}
 .en{color:var(--soft)}
 .u{font-family:Unbounded,sans-serif}
 
 /* Flight strip: the plane flies from Manila to Zaandijk as you scroll */
 .flight{position:fixed;left:0;right:0;top:0;z-index:20;pointer-events:none}
 .flight svg{display:block;width:100%;height:auto}
-.flight .trail{fill:none;stroke:var(--sky);stroke-width:2.5;stroke-dasharray:7 9;stroke-linecap:round}
-.flight .draw{fill:none;stroke:var(--coral);stroke-width:3;stroke-linecap:round}
+.flight .trail{fill:none;stroke:var(--green);stroke-width:2.5;stroke-dasharray:7 9;stroke-linecap:round}
+.flight .draw{fill:none;stroke:var(--pink);stroke-width:3;stroke-linecap:round}
 .flight text{font-family:Unbounded,sans-serif;font-size:12px;font-weight:500;fill:var(--ink)}
 .flight .plane{offset-rotate:auto 180deg}
 .flight .m{display:none}
 
 /* Hero: kinetic names with a giant stamp on top */
 .hero{position:relative;overflow:hidden;min-height:min(100svh,900px);display:flex;flex-direction:column;justify-content:center;padding:110px 0 32px}
-.hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:70vw;height:70vw;max-width:900px;max-height:900px;border-radius:50%;background:radial-gradient(closest-side,rgba(255,197,61,.55),rgba(255,90,60,.18) 60%,transparent 72%);pointer-events:none}
+.hero::before{content:"";position:absolute;inset:-20% -10% auto auto;width:70vw;height:70vw;max-width:900px;max-height:900px;border-radius:50%;background:radial-gradient(closest-side,rgba(239,183,199,.75),rgba(242,140,56,.2) 60%,transparent 72%);pointer-events:none}
 .row{white-space:nowrap;overflow:hidden;line-height:.9;position:relative;z-index:0}
 .row .t{display:inline-flex;gap:.3em;font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(4rem,12vw,11rem);letter-spacing:-.03em;will-change:transform}
 .row.l .t{animation:left 32s linear infinite}
 .row.r .t{animation:right 32s linear infinite}
 .row .t span:nth-child(even){color:transparent;-webkit-text-stroke:3px var(--ink)}
-.row.l .t span:nth-child(odd){color:var(--sky)}
-.row.r .t span:nth-child(odd){color:var(--coral)}
+.row.l .t span:nth-child(odd){color:var(--orange)}
+.row.r .t span:nth-child(odd){color:var(--pink)}
 @keyframes left{to{transform:translateX(-50%)}}
 @keyframes right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
 
@@ -52,7 +52,7 @@ a{color:inherit}
 .face{position:absolute;inset:0;backface-visibility:hidden;padding:16px}
 .perf{position:absolute;inset:0;width:100%;height:100%}
 .face.back{transform:rotateY(180deg)}
-.art{position:absolute;inset:16px;overflow:hidden;background:linear-gradient(180deg,var(--sun) 0%,var(--coral) 58%,var(--sky) 58.2%,#1C44B8 100%)}
+.art{position:absolute;inset:16px;overflow:hidden;background:linear-gradient(180deg,#F7D9E1 0%,var(--pink) 58%,var(--green) 58.2%,#1E4530 100%)}
 .art svg{position:absolute;inset:0;width:100%;height:100%}
 .art .rays{transform-origin:300px 212px;animation:turn 50s linear infinite}
 @keyframes turn{to{transform:rotate(360deg)}}
@@ -62,7 +62,7 @@ a{color:inherit}
 .art .tr{right:16px;top:14px;font-weight:800;font-size:clamp(.9rem,2.2vw,1.35rem)}
 .art .tl b{display:block;font-weight:300}
 .art h1{position:absolute;left:16px;bottom:10px;color:var(--white);font-weight:800;font-size:clamp(1.5rem,4.6vw,2.9rem);letter-spacing:-.03em;text-shadow:0 3px 20px rgba(20,17,15,.35)}
-.art h1 em{display:block;font-family:Newsreader,serif;font-style:italic;font-weight:400;font-size:.55em;letter-spacing:0;color:var(--sun)}
+.art h1 em{display:block;font-family:Newsreader,serif;font-style:italic;font-weight:400;font-size:.55em;letter-spacing:0;color:var(--orange)}
 
 .back{display:grid;grid-template-columns:1.1fr 1fr;gap:24px;padding:32px;font-style:italic;font-size:clamp(.9rem,1.7vw,1.2rem)}
 .back .msg{position:relative;border-right:2px solid rgba(20,17,15,.15);padding-right:22px}
@@ -76,7 +76,7 @@ a{color:inherit}
 .lines{margin-top:120px}
 .lines div{border-bottom:1.5px solid rgba(20,17,15,.3);padding:6px 0 3px;font-size:.95em}
 
-.sticker{position:absolute;right:calc(50% - min(43vw,320px) - 44px);bottom:-34px;width:140px;height:140px;border-radius:50%;background:var(--sun);color:var(--ink);text-decoration:none;border:6px solid var(--paper);box-shadow:0 10px 30px -10px rgba(20,17,15,.35);z-index:3;display:grid;place-items:center;text-align:center;font-family:Unbounded,sans-serif;font-weight:800;line-height:1.1;font-size:.95rem;transform:rotate(12deg) scale(0);animation:pop .9s var(--ease) 1.4s forwards;transition:transform .3s var(--ease)}
+.sticker{position:absolute;right:calc(50% - min(43vw,320px) - 44px);bottom:-34px;width:140px;height:140px;border-radius:50%;background:var(--orange);color:var(--ink);text-decoration:none;border:6px solid var(--paper);box-shadow:0 10px 30px -10px rgba(20,17,15,.35);z-index:3;display:grid;place-items:center;text-align:center;font-family:Unbounded,sans-serif;font-weight:800;line-height:1.1;font-size:.95rem;transform:rotate(12deg) scale(0);animation:pop .9s var(--ease) 1.4s forwards;transition:transform .3s var(--ease)}
 .sticker small{display:block;font-weight:300;font-size:.8em}
 @keyframes pop{to{transform:rotate(12deg) scale(1)}}
 .hint{position:relative;z-index:1;text-align:center;color:var(--soft);font-style:italic;margin:28px 0 0;animation:fadein 1s var(--ease) 2.2s both}
@@ -85,10 +85,10 @@ a{color:inherit}
 /* Stacking postcards */
 .stack{max-width:1000px;margin:60px auto 0;padding:0 20px}
 .panel{position:sticky;top:96px;background:var(--white);border-radius:24px;padding:56px;margin-bottom:48px;box-shadow:0 20px 60px -30px rgba(20,17,15,.35);transform-origin:top center;overflow:hidden}
-.panel:nth-child(2){background:var(--sky);color:var(--white);top:112px}
-.panel:nth-child(3){background:var(--ink);color:var(--paper);top:128px}
-.panel:nth-child(4){background:var(--sun);top:144px}
-.panel:nth-child(5){background:var(--coral);color:var(--white);top:160px}
+.panel:nth-child(2){background:var(--blush);top:112px}
+.panel:nth-child(3){background:var(--green);color:var(--paper);top:128px}
+.panel:nth-child(4){background:var(--orange);top:144px}
+.panel:nth-child(5){background:var(--pink);color:var(--white);top:160px}
 .panel h2{font-size:clamp(1.9rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.025em;margin-bottom:.5em}
 .panel h2 small{display:block;font-weight:300;font-size:.55em;letter-spacing:0;margin-top:.3em;opacity:.8}
 .panel p{max-width:62ch}
@@ -100,25 +100,25 @@ a{color:inherit}
 .facts span{font-size:.92rem;opacity:.8;font-style:italic}
 
 .cards{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;perspective:1200px}
-.card{padding:22px 16px;border-radius:18px;background:rgba(255,255,255,.14);color:inherit;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;transform-style:preserve-3d;transition:transform .5s var(--ease);border:1.5px solid rgba(255,255,255,.35)}
+.card{padding:22px 16px;border-radius:18px;background:rgba(255,255,255,.55);color:inherit;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;transform-style:preserve-3d;transition:transform .5s var(--ease);border:1.5px solid rgba(42,36,33,.12)}
 .card time{font-family:Unbounded,sans-serif;font-weight:800;font-size:1.5rem}
 .card b{display:block;font-family:Unbounded,sans-serif;font-weight:500;font-size:.95rem;margin-top:20px}
 .card span{font-size:.95rem;opacity:.85;font-style:italic}
 
 .count{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center}
-.count .n{font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(4rem,12vw,9rem);letter-spacing:-.05em;line-height:1;color:var(--sun)}
+.count .n{font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(4rem,12vw,9rem);letter-spacing:-.05em;line-height:1;color:var(--orange)}
 
 .chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 28px}
 .chip{appearance:none;font:inherit;font-style:italic;color:inherit;background:transparent;padding:10px 18px;border-radius:999px;border:1.5px solid rgba(255,255,255,.6);cursor:pointer;transition:background .25s,transform .25s var(--ease)}
 .chip:hover{background:rgba(255,255,255,.15)}
-.chip.on{background:var(--white);color:var(--coral);border-color:var(--white)}
+.chip.on{background:var(--white);color:var(--pink);border-color:var(--white)}
 .chip:active{transform:scale(.96)}
 .ink{position:absolute;right:48px;bottom:44px;width:190px;height:190px;border:5px double var(--ink);border-radius:50%;display:grid;place-items:center;text-align:center;font-family:Unbounded,sans-serif;font-weight:800;font-size:1rem;line-height:1.15;color:var(--ink);transform:rotate(-14deg) scale(3);opacity:0;pointer-events:none;mix-blend-mode:multiply}
 .ink.show{animation:thump .45s cubic-bezier(.2,1.4,.4,1) forwards}
 .ink small{display:block;font-weight:300;font-size:.7em}
 @keyframes thump{to{transform:rotate(-14deg) scale(1);opacity:.85}}
 .btn{position:relative;display:inline-block;padding:20px 40px;border-radius:999px;font-family:Unbounded,sans-serif;font-weight:500;font-size:1rem;text-decoration:none;color:var(--ink);background:var(--white);isolation:isolate;transition:transform .3s var(--ease)}
-.btn::before{content:"";position:absolute;inset:-4px;border-radius:inherit;background:conic-gradient(from var(--a,0deg),var(--sun),var(--coral),var(--sky),var(--sun));z-index:-1;animation:spin 3s linear infinite}
+.btn::before{content:"";position:absolute;inset:-4px;border-radius:inherit;background:conic-gradient(from var(--a,0deg),var(--orange),var(--pink),var(--green),var(--orange));z-index:-1;animation:spin 3s linear infinite}
 .btn::after{content:"";position:absolute;inset:0;border-radius:inherit;background:var(--white);z-index:-1}
 .btn:hover{transform:scale(1.05)}
 @property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
@@ -169,15 +169,15 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
   <svg class="d" viewBox="0 0 1000 78">
     <path class="trail" d="M964 56 Q 500 -28 36 56"/>
     <path class="draw" id="draw-d" d="M964 56 Q 500 -28 36 56"/>
-    <circle cx="964" cy="56" r="5" fill="#FF5A3C"/><text x="964" y="74" text-anchor="middle">Manila</text>
-    <circle cx="36" cy="56" r="5" fill="#2F6BFF"/><text x="36" y="74" text-anchor="middle">Zaandijk</text>
-    <g class="plane" id="plane-d" style="offset-path:path('M964 56 Q 500 -28 36 56')"><path d="M-13 0 L13 -5 L8 0 L13 5 Z" fill="#14110F"/></g>
+    <circle cx="964" cy="56" r="5" fill="#C82A63"/><text x="964" y="74" text-anchor="middle">Manila</text>
+    <circle cx="36" cy="56" r="5" fill="#2D5A3D"/><text x="36" y="74" text-anchor="middle">Zaandijk</text>
+    <g class="plane" id="plane-d" style="offset-path:path('M964 56 Q 500 -28 36 56')"><path d="M-13 0 L13 -5 L8 0 L13 5 Z" fill="#2A2421"/></g>
   </svg>
   <svg class="m" viewBox="0 0 390 48">
     <path class="trail" d="M372 34 Q 195 -14 18 34"/>
     <path class="draw" id="draw-m" d="M372 34 Q 195 -14 18 34"/>
-    <circle cx="372" cy="34" r="4" fill="#FF5A3C"/><circle cx="18" cy="34" r="4" fill="#2F6BFF"/>
-    <g class="plane" id="plane-m" style="offset-path:path('M372 34 Q 195 -14 18 34')"><path d="M-10 0 L10 -4 L6 0 L10 4 Z" fill="#14110F"/></g>
+    <circle cx="372" cy="34" r="4" fill="#C82A63"/><circle cx="18" cy="34" r="4" fill="#2D5A3D"/>
+    <g class="plane" id="plane-m" style="offset-path:path('M372 34 Q 195 -14 18 34')"><path d="M-10 0 L10 -4 L6 0 L10 4 Z" fill="#2A2421"/></g>
   </svg>
 </div>
 
@@ -192,15 +192,15 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
           <svg class="perf" aria-hidden="true"></svg>
           <div class="art">
             <svg viewBox="0 0 600 450" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-              <g class="rays" fill="#FFE9A3" opacity=".9">
+              <g class="rays" fill="#F28C38" opacity=".95">
                 <g id="ray"><polygon points="300,212 288,120 300,40 312,120"/></g>
                 <use href="#ray" transform="rotate(45 300 212)"/><use href="#ray" transform="rotate(90 300 212)"/><use href="#ray" transform="rotate(135 300 212)"/><use href="#ray" transform="rotate(180 300 212)"/><use href="#ray" transform="rotate(225 300 212)"/><use href="#ray" transform="rotate(270 300 212)"/><use href="#ray" transform="rotate(315 300 212)"/>
               </g>
-              <circle cx="300" cy="212" r="46" fill="#FFF4CF"/>
-              <path d="M0 262 Q 150 254 300 262 T 600 262 L600 270 L0 270Z" fill="#14110F" opacity=".9"/>
-              <g fill="#14110F">
-                <path d="M110 262 L122 190 L146 190 L158 262Z"/><g class="sails"><path d="M134 190 L134 128 M134 190 L190 162 M134 190 L78 218 M134 190 L134 252" stroke="#14110F" stroke-width="5" fill="none"/></g>
-                <path d="M430 262 L440 206 L462 206 L472 262Z"/><g class="sails"><path d="M451 206 L451 154 M451 206 L498 184 M451 206 L404 228 M451 206 L451 258" stroke="#14110F" stroke-width="5" fill="none"/></g>
+              <circle cx="300" cy="212" r="46" fill="#F8F3EA"/>
+              <path d="M0 262 Q 150 254 300 262 T 600 262 L600 270 L0 270Z" fill="#2A2421" opacity=".9"/>
+              <g fill="#2A2421">
+                <path d="M110 262 L122 190 L146 190 L158 262Z"/><g class="sails"><path d="M134 190 L134 128 M134 190 L190 162 M134 190 L78 218 M134 190 L134 252" stroke="#2A2421" stroke-width="5" fill="none"/></g>
+                <path d="M430 262 L440 206 L462 206 L472 262Z"/><g class="sails"><path d="M451 206 L451 154 M451 206 L498 184 M451 206 L404 228 M451 206 L451 258" stroke="#2A2421" stroke-width="5" fill="none"/></g>
                 <path d="M520 262 L526 226 L546 226 L552 262Z"/>
               </g>
               <g fill="none" stroke="#FFF" stroke-width="2" opacity=".55"><path d="M40 320 q 30 -8 60 0 t 60 0"/><path d="M380 350 q 30 -8 60 0 t 60 0"/><path d="M200 400 q 30 -8 60 0 t 60 0"/></g>
@@ -219,8 +219,8 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
           </div>
           <div class="addr">
             <div class="stamps">
-              <div class="stamp"><svg viewBox="0 0 60 70"><rect x="2" y="2" width="56" height="66" fill="#2F6BFF"/><g stroke="#FFF" stroke-width="2.5" fill="none"><path d="M24 62 L28 32 L32 32 L36 62"/><path d="M30 32 L14 12 M30 32 L46 12 M30 32 L14 52 M30 32 L46 52"/></g></svg></div>
-              <div class="stamp"><svg viewBox="0 0 60 70"><rect x="2" y="2" width="56" height="66" fill="#FF5A3C"/><g fill="#FFC53D" transform="translate(30 35)"><circle r="9"/><g id="r"><polygon points="0,-12 -3,-20 0,-28 3,-20"/></g><use href="#r" transform="rotate(45)"/><use href="#r" transform="rotate(90)"/><use href="#r" transform="rotate(135)"/><use href="#r" transform="rotate(180)"/><use href="#r" transform="rotate(225)"/><use href="#r" transform="rotate(270)"/><use href="#r" transform="rotate(315)"/></g></svg></div>
+              <div class="stamp"><svg viewBox="0 0 60 70"><rect x="2" y="2" width="56" height="66" fill="#2D5A3D"/><g stroke="#FFF" stroke-width="2.5" fill="none"><path d="M24 62 L28 32 L32 32 L36 62"/><path d="M30 32 L14 12 M30 32 L46 12 M30 32 L14 52 M30 32 L46 52"/></g></svg></div>
+              <div class="stamp"><svg viewBox="0 0 60 70"><rect x="2" y="2" width="56" height="66" fill="#C82A63"/><g fill="#F28C38" transform="translate(30 35)"><circle r="9"/><g id="r"><polygon points="0,-12 -3,-20 0,-28 3,-20"/></g><use href="#r" transform="rotate(45)"/><use href="#r" transform="rotate(90)"/><use href="#r" transform="rotate(135)"/><use href="#r" transform="rotate(180)"/><use href="#r" transform="rotate(225)"/><use href="#r" transform="rotate(270)"/><use href="#r" transform="rotate(315)"/></g></svg></div>
             </div>
             <div class="postmark"><span>Zaandijk<b id="pm">000</b>dagen, days</span></div>
             <div class="lines"><div>Aan, to: jullie, you</div><div>d'Swarte Walvis, Kalverringdijk 15</div><div>1509 BT Zaandijk, Nederland</div></div>
