@@ -49,6 +49,15 @@ a{color:inherit}
 @keyframes land{from{transform:translateY(-80vh) rotateX(45deg) rotateZ(-10deg)}to{transform:none}}
 .pc{position:absolute;inset:0;transform-style:preserve-3d;transition:transform .9s var(--ease);cursor:pointer;pointer-events:auto}
 .pc.flip{transform:rotateY(180deg) !important}
+.pc.tease{animation:tease 1.5s var(--ease)}
+@keyframes tease{0%{transform:none}35%{transform:rotateY(-26deg) rotateX(4deg)}100%{transform:none}}
+/* tap marker on the edge of the stamp, gone after the first flip */
+.tap{position:absolute;left:calc(50% - min(43vw,320px) - 26px);top:50%;width:52px;height:52px;margin-top:-26px;border-radius:50%;background:var(--white);border:3px solid var(--ink);display:grid;place-items:center;z-index:4;pointer-events:none;opacity:0;animation:fadein .6s var(--ease) 2.2s both}
+.tap::before{content:"";position:absolute;inset:-3px;border-radius:50%;border:3px solid var(--pink);animation:ripple 1.8s ease-out infinite 2.6s;opacity:0}
+.tap svg{width:26px;height:26px;animation:tapping 1.8s ease-in-out infinite 2.6s}
+@keyframes ripple{0%{transform:scale(1);opacity:.9}100%{transform:scale(2.1);opacity:0}}
+@keyframes tapping{0%,100%{transform:translateY(0) scale(1)}25%{transform:translateY(3px) scale(.92)}50%{transform:translateY(0) scale(1)}}
+.stage.done .tap{display:none}
 .face{position:absolute;inset:0;backface-visibility:hidden;padding:16px}
 .perf{position:absolute;inset:0;width:100%;height:100%}
 .face.back{transform:rotateY(180deg)}
@@ -142,6 +151,8 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
   .row .t{font-size:clamp(3.4rem,17vw,5rem)}
   .stage{margin:-.2em 0;padding:0 12px}
   .pcw{width:100%;aspect-ratio:1}
+  .tap{left:2px;width:46px;height:46px;margin-top:-23px}
+  .tap svg{width:22px;height:22px}
   .face{padding:10px}
   .art{inset:10px}
   .art h1{left:12px;bottom:8px}
@@ -173,6 +184,7 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
 @media (prefers-reduced-motion:reduce){
   *{animation:none !important;transition:none !important}
   .sticker{transform:rotate(12deg) scale(1)}
+  .tap{opacity:1}
   .ink.show{transform:rotate(-14deg) scale(1);opacity:.85}
 }
 </style>
@@ -243,10 +255,11 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
       </div>
     </div>
     <a class="sticker" href="#rsvp">Kom je?<small>Are you coming?</small></a>
+    <div class="tap" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#2A2421" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 11.5V5.5a1.5 1.5 0 0 1 3 0v5"/><path d="M12 10a1.5 1.5 0 0 1 3 0v1.5"/><path d="M15 11a1.5 1.5 0 0 1 3 0v1"/><path d="M18 12a1.5 1.5 0 0 1 3 0v4a5 5 0 0 1-5 5h-3.2a5 5 0 0 1-4.2-2.3L6 14.8a1.4 1.4 0 0 1 2.3-1.6L9 14.5"/><path d="M9 2.5a3.5 3.5 0 0 0-3.2 2.3"/></svg></div>
   </div>
 
   <div class="row r"><div class="t"><span>Shiela</span><span>Shiela</span><span>Shiela</span><span>Shiela</span><span>Shiela</span><span>Shiela</span><span>Shiela</span><span>Shiela</span><span>Shiela</span><span>Shiela</span></div></div>
-  <p class="hint">Tik op de postzegel om hem om te draaien. Tap the stamp to flip it.</p>
+  <p class="hint" id="hint">Tik op de postzegel om hem om te draaien. Tap the stamp to flip it.</p>
 </header>
 
 <main class="stack">
@@ -324,7 +337,11 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
 (function(){
   var rm=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var pc=document.getElementById('pc'),flipped=false;
-  function flip(){flipped=!flipped;pc.classList.toggle('flip',flipped);pc.style.transform=''}
+  var stage=document.querySelector('.stage'),hint=document.getElementById('hint'),teaser;
+  function tease(){if(flipped||rm)return;pc.classList.add('tease');setTimeout(function(){pc.classList.remove('tease')},1500)}
+  teaser=setInterval(tease,6000);setTimeout(tease,2400);
+  function flip(){flipped=!flipped;pc.classList.toggle('flip',flipped);pc.classList.remove('tease');pc.style.transform='';
+    if(!stage.classList.contains('done')){stage.classList.add('done');clearInterval(teaser);hint.textContent='Nog een keer tikken om terug te draaien. Tap again to turn it back.'}}
   pc.addEventListener('click',flip);
   pc.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}});
   if(!rm){
