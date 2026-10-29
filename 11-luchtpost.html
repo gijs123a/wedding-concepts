@@ -88,7 +88,8 @@ a{color:inherit}
 .panel:nth-child(2){background:var(--blush);top:112px}
 .panel:nth-child(3){background:var(--green);color:var(--paper);top:128px}
 .panel:nth-child(4){background:var(--orange);top:144px}
-.panel:nth-child(5){background:var(--pink);color:var(--white);top:160px}
+.panel:nth-child(5){background:var(--white);top:160px;padding-top:120px}
+.panel:nth-child(6){background:var(--pink);color:var(--white);top:176px}
 .panel h2{font-size:clamp(1.9rem,4.6vw,3.2rem);font-weight:800;letter-spacing:-.025em;margin-bottom:.5em}
 .panel h2 small{display:block;font-weight:300;font-size:.55em;letter-spacing:0;margin-top:.3em;opacity:.8}
 .panel p{max-width:62ch}
@@ -99,8 +100,8 @@ a{color:inherit}
 .facts b{display:block;font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(1.8rem,4vw,3rem);letter-spacing:-.02em;line-height:1.1}
 .facts span{font-size:.92rem;opacity:.8;font-style:italic}
 
-.cards{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;perspective:1200px}
-.card{padding:22px 16px;border-radius:18px;background:rgba(255,255,255,.55);color:inherit;min-height:190px;display:flex;flex-direction:column;justify-content:space-between;transform-style:preserve-3d;transition:transform .5s var(--ease);border:1.5px solid rgba(42,36,33,.12)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;perspective:1200px}
+.card{padding:22px 16px;border-radius:18px;background:rgba(255,255,255,.55);color:inherit;min-height:170px;display:flex;flex-direction:column;justify-content:space-between;transform-style:preserve-3d;transition:transform .5s var(--ease);border:1.5px solid rgba(42,36,33,.12)}
 .card time{font-family:Unbounded,sans-serif;font-weight:800;font-size:1.5rem}
 .card b{display:block;font-family:Unbounded,sans-serif;font-weight:500;font-size:.95rem;margin-top:20px}
 .card span{font-size:.95rem;opacity:.85;font-style:italic}
@@ -108,6 +109,14 @@ a{color:inherit}
 .count{display:grid;grid-template-columns:auto 1fr;gap:40px;align-items:center}
 .count .n{font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(4rem,12vw,9rem);letter-spacing:-.05em;line-height:1;color:var(--orange)}
 
+/* Ribbon garland and colour swatches */
+.garland{position:absolute;left:0;right:0;top:0;height:110px;display:flex;justify-content:space-between;padding:0 24px;pointer-events:none;overflow:hidden}
+.garland::before{content:"";position:absolute;left:0;right:0;top:6px;height:2px;background:var(--ink);opacity:.5}
+.garland i{display:block;width:12px;height:var(--h,70px);border-radius:0 0 6px 6px;background:var(--c,var(--pink));transform-origin:top center;animation:sway 3.2s ease-in-out infinite alternate;animation-delay:var(--d,0s);margin-top:7px}
+@keyframes sway{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
+.wear{display:flex;flex-wrap:wrap;gap:12px;margin:8px 0 20px;list-style:none;padding:0}
+.wear span{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:999px;border:1.5px solid rgba(42,36,33,.15);font-style:italic}
+.wear b{width:32px;height:32px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)}
 .chips{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 28px}
 .chip{appearance:none;font:inherit;font-style:italic;color:inherit;background:transparent;padding:10px 18px;border-radius:999px;border:1.5px solid rgba(255,255,255,.6);cursor:pointer;transition:background .25s,transform .25s var(--ease)}
 .chip:hover{background:rgba(255,255,255,.15)}
@@ -147,7 +156,12 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
   .hint{margin-top:18px;font-size:.95rem}
   .stack{margin-top:32px;padding:0 12px}
   .panel{padding:26px 20px;border-radius:18px;top:56px;margin-bottom:28px}
-  .panel:nth-child(2){top:64px}.panel:nth-child(3){top:72px}.panel:nth-child(4){top:80px}.panel:nth-child(5){top:88px}
+  .panel:nth-child(2){top:64px}.panel:nth-child(3){top:72px}.panel:nth-child(4){top:80px}.panel:nth-child(5){top:88px;padding-top:84px}.panel:nth-child(6){top:96px}
+  .garland{height:72px;padding:0 12px}
+  .garland i{width:8px;height:calc(var(--h,70px) * .62)}
+  .wear{gap:8px}
+  .wear span{padding:6px 12px 6px 6px;font-size:.9rem}
+  .wear b{width:26px;height:26px}
   .facts{grid-template-columns:1fr;gap:10px;margin-top:20px}
   .facts div{padding:16px}
   .cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin:0 -20px;padding:0 20px 10px}
@@ -250,11 +264,12 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
   <section class="panel">
     <h2>De dag<small>The day</small></h2>
     <div class="cards">
-      <div class="card"><time>14:00</time><div><b>Ontvangst</b><span>Welcome</span></div></div>
-      <div class="card"><time>14:30</time><div><b>Ceremonie</b><span>Ceremony by the water</span></div></div>
-      <div class="card"><time>15:30</time><div><b>Toost</b><span>Toast and photos</span></div></div>
-      <div class="card"><time>18:00</time><div><b>Diner</b><span>Dutch and Filipino</span></div></div>
-      <div class="card"><time>20:30</time><div><b>Feest</b><span>Party until late</span></div></div>
+      <div class="card"><time>13:30</time><div><b>Inloop</b><span>Guests arrive</span></div></div>
+      <div class="card"><time>14:00</time><div><b>Ceremonie aan het water</b><span>Ceremony by the water</span></div></div>
+      <div class="card"><time>14:45</time><div><b>Taart, foto's en een boottocht</b><span>Cake, photos and a boat trip on the Zaan</span></div></div>
+      <div class="card"><time>17:30</time><div><b>Diner, drie gangen</b><span>Three-course dinner</span></div></div>
+      <div class="card"><time>20:00</time><div><b>Feest</b><span>Party, evening guests welcome</span></div></div>
+      <div class="card"><time>00:00</time><div><b>Einde</b><span>End of the night</span></div></div>
     </div>
   </section>
 
@@ -271,8 +286,22 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
 
   <section class="panel">
     <h2>Goed om te weten<small>Good to know</small></h2>
-    <p>Dresscode: feestelijk, kleur mag. Festive, colour welcome. A barong or terno would make us very happy.</p>
-    <p class="en">Kinderen zijn welkom. Children are welcome. Jullie komst is het mooiste cadeau. Your presence is the gift.</p>
+    <p>Kinderen zijn welkom. Parkeren kan op het terrein van de Zaanse Schans, een paar minuten lopen. Jullie komst is het mooiste cadeau.</p>
+    <p class="en">Children are welcome. Parking is at the Zaanse Schans car park, a few minutes on foot. Your presence is the gift.</p>
+  </section>
+
+  <section class="panel">
+    <div class="garland" aria-hidden="true"></div>
+    <h2>Kleur mee<small>Wear colour</small></h2>
+    <p>Wij houden de styling licht: wit linnen, glas en crème linten. De kleur komt van de bloemen, en van jullie. Kom in hibiscusroze, mango-oranje, zachtroze of groen. Een barong of terno maakt ons heel blij.</p>
+    <p class="en">We keep the styling light: white linen, glass and cream ribbons. The colour comes from the flowers, and from you. Come in hibiscus pink, mango orange, soft pink or green. A barong or terno would make us very happy.</p>
+    <ul class="wear">
+      <li><span><b style="--c:#C82A63"></b>Hibiscusroze, hibiscus pink</span></li>
+      <li><span><b style="--c:#F28C38"></b>Mango-oranje, mango orange</span></li>
+      <li><span><b style="--c:#EFB7C7"></b>Zachtroze, soft pink</span></li>
+      <li><span><b style="--c:#2D5A3D"></b>Groen, green</span></li>
+    </ul>
+    <p class="en">Wit en crème laten we aan de tafels en de bruid. White and cream we leave to the tables and the bride.</p>
   </section>
 
   <section class="panel" id="rsvp">
@@ -357,6 +386,11 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
     el.addEventListener('mouseleave',function(){el.style.transform=''});
   });
 
+  // ribbon garland
+  var g=document.querySelector('.garland'),cols=['#C82A63','#F28C38','#EFB7C7','#F8F3EA','#2D5A3D','#C82A63','#EFB7C7','#F28C38'];
+  var n=g.clientWidth<500?22:44,frag=document.createDocumentFragment();
+  for(var k=0;k<n;k++){var r=document.createElement('i');r.style.setProperty('--c',cols[k%cols.length]);r.style.setProperty('--h',(50+((k*37)%45))+'px');r.style.setProperty('--d',(-(k*0.37)%3.2)+'s');frag.appendChild(r)}
+  g.appendChild(frag);
   // RSVP chips stamp "received"
   var ink=document.getElementById('ink');
   document.getElementById('chips').addEventListener('click',function(e){
