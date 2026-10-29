@@ -134,9 +134,12 @@ a{color:inherit}
 .count .n{font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(4rem,12vw,9rem);letter-spacing:-.05em;line-height:1;color:var(--orange)}
 
 /* Ribbon garland and colour swatches */
-.garland{position:absolute;left:0;right:0;top:0;height:110px;display:flex;justify-content:space-between;padding:0 24px;overflow:hidden;touch-action:pan-y;cursor:grab}
+.garland{position:absolute;left:0;right:0;top:0;height:110px;padding:0 24px;overflow:hidden;touch-action:pan-y;cursor:grab}
 .garland::before{content:"";position:absolute;left:0;right:0;top:6px;height:2px;background:var(--ink);opacity:.5}
-.garland i{display:block;width:12px;height:var(--h,70px);border-radius:0 0 6px 6px;background:linear-gradient(90deg,var(--c,var(--pink)) 0 45%,color-mix(in srgb,var(--c,var(--pink)) 70%,#fff) 70%,var(--c,var(--pink)));transform-origin:top center;margin-top:7px;will-change:transform;transform:rotate(var(--r,0deg))}
+.garland svg{position:absolute;left:0;top:0;width:100%;height:100%;clip-path:inset(7px 0 0 0)}
+.garland path{fill:none;stroke-linecap:round;stroke-linejoin:round}
+.garland .rb{stroke-width:12px}
+.garland .hl{stroke-width:3px;opacity:.85}
 .wear{display:flex;flex-wrap:wrap;gap:12px;margin:8px 0 20px;list-style:none;padding:0}
 .wear span{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:999px;border:1.5px solid rgba(42,36,33,.15);font-style:italic}
 .wear b{width:32px;height:32px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)}
@@ -155,6 +158,41 @@ a{color:inherit}
 .btn:hover{transform:scale(1.05)}
 @property --a{syntax:"<angle>";inherits:false;initial-value:0deg}
 @keyframes spin{to{--a:360deg}}
+
+/* Nina, the dog, on the first card */
+.intro-top{display:grid;grid-template-columns:minmax(0,1fr) 250px;gap:44px;align-items:center}
+.nina{position:relative;margin:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.nina svg{display:block;width:100%;height:auto;overflow:visible}
+.nina figcaption{margin-top:10px;text-align:center;font-style:italic;font-size:1rem;line-height:1.35}
+.nina figcaption .en{display:block}
+.n-breath{transform-origin:120px 268px;animation:n-breathe 4.2s ease-in-out infinite}
+.n-head{transform-origin:120px 150px;transition:transform .55s cubic-bezier(.3,1.6,.5,1)}
+.n-ear{transition:transform .55s cubic-bezier(.3,1.6,.5,1)}
+.n-ear-l{transform-origin:82px 84px;animation:n-ear-l 5.6s ease-in-out infinite}
+.n-ear-r{transform-origin:168px 84px;animation:n-ear-r 5.6s ease-in-out infinite -.4s}
+.n-eyes{transform-box:fill-box;transform-origin:center;animation:n-blink 9s infinite 1.2s}
+.n-tongue{transform-origin:112px 156px;animation:n-pant 4.2s ease-in-out infinite}
+.n-tail{transform-origin:170px 252px;animation:n-wag 1.4s ease-in-out infinite}
+.woef{position:absolute;right:-6px;top:2%;z-index:1;padding:8px 14px 9px;border-radius:999px;background:var(--pink);color:var(--white);font-family:Unbounded,sans-serif;font-weight:800;font-size:.95rem;line-height:1;transform:scale(0) rotate(8deg);transform-origin:12% 100%;pointer-events:none}
+.woef::after{content:"";position:absolute;left:14px;bottom:-7px;width:14px;height:12px;background:inherit;clip-path:polygon(0 0,100% 0,0 100%)}
+.nina.hey .woef{animation:n-woef 1.5s var(--ease)}
+.nina.hey .n-head{transform:rotate(12deg)}
+.nina.hey .n-ear-l{animation:none;transform:rotate(-5deg)}
+.nina.hey .n-ear-r{animation:none;transform:rotate(-10deg)}
+.nina.hey .n-tail{animation-duration:.28s}
+@media (hover:hover){
+  .nina:hover .n-head{transform:rotate(12deg)}
+  .nina:hover .n-ear-l{animation:none;transform:rotate(-5deg)}
+  .nina:hover .n-ear-r{animation:none;transform:rotate(-10deg)}
+  .nina:hover .n-tail{animation-duration:.28s}
+}
+@keyframes n-breathe{0%,100%{transform:scale(1,1)}50%{transform:scale(1.012,1.026)}}
+@keyframes n-ear-l{0%,100%{transform:rotate(0)}50%{transform:rotate(2.5deg)}}
+@keyframes n-ear-r{0%,100%{transform:rotate(0)}50%{transform:rotate(-2.5deg)}}
+@keyframes n-blink{0%,1.6%,47%,48.6%,100%{transform:scaleY(1)}.8%,47.8%{transform:scaleY(.1)}}
+@keyframes n-pant{0%,100%{transform:scaleY(1)}50%{transform:scaleY(1.07)}}
+@keyframes n-wag{0%,100%{transform:rotate(-10deg)}50%{transform:rotate(14deg)}}
+@keyframes n-woef{0%{transform:scale(0) rotate(8deg)}14%{transform:scale(1.12) rotate(-4deg)}24%,78%{transform:scale(1) rotate(-4deg)}100%{transform:scale(0) rotate(8deg)}}
 
 footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:italic}
 
@@ -187,10 +225,13 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
   .panel{padding:26px 20px;border-radius:18px;top:56px;margin-bottom:28px}
   .panel:nth-child(2){top:64px}.panel:nth-child(3){top:72px}.panel:nth-child(4){top:80px}.panel:nth-child(5){top:88px;padding-top:84px}.panel:nth-child(6){top:96px}
   .garland{height:72px;padding:0 12px}
-  .garland i{width:8px;height:calc(var(--h,70px) * .62)}
+  .garland .rb{stroke-width:8px}
+  .garland .hl{stroke-width:2px}
   .wear{gap:8px}
   .wear span{padding:6px 12px 6px 6px;font-size:.9rem}
   .wear b{width:26px;height:26px}
+  .intro-top{grid-template-columns:1fr;gap:6px}
+  .nina{width:180px;margin:6px auto 0}
   .facts{grid-template-columns:1fr;gap:10px;margin-top:20px}
   .facts div{padding:16px}
   .cards{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:10px;margin:0 -20px;padding:0 20px 10px}
@@ -206,6 +247,8 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
   .petals{display:none}
   .shadow{opacity:1}
   .ink.show{transform:rotate(-14deg) scale(1);opacity:.85}
+  .woef{transform:rotate(-4deg)}
+  .nina{cursor:default}
 }
 </style>
 </head>
@@ -272,7 +315,7 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
               <div class="stamp"><svg viewBox="0 0 60 70"><rect x="2" y="2" width="56" height="66" fill="#C82A63"/><g fill="#F28C38" transform="translate(30 35)"><circle r="9"/><g id="r"><polygon points="0,-12 -3,-20 0,-28 3,-20"/></g><use href="#r" transform="rotate(45)"/><use href="#r" transform="rotate(90)"/><use href="#r" transform="rotate(135)"/><use href="#r" transform="rotate(180)"/><use href="#r" transform="rotate(225)"/><use href="#r" transform="rotate(270)"/><use href="#r" transform="rotate(315)"/></g></svg></div>
             </div>
             <div class="postmark"><span>Zaandijk<b id="pm">000</b>dagen, days</span></div>
-            <div class="lines"><div>Aan, to: jullie, you</div><div>d'Swarte Walvis, Kalverringdijk 15</div><div>1509 BT Zaandijk, Nederland</div></div>
+            <div class="lines"><div>Aan, to: jullie, you</div><div>d'Swarte Walvis, Kalverringdijk 15</div><div>1509 BT Zaandam, Nederland</div></div>
           </div>
         </div>
       </div>
@@ -287,9 +330,60 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
 
 <main class="stack">
   <section class="panel">
-    <h2>Wij gaan trouwen<small>We are getting married</small></h2>
-    <p>Gijs komt uit Nederland, Shiela uit de Filipijnen. Op 12 juni 2027 brengen we beide families samen op de Zaanse Schans, in een pakhuis uit 1700 aan het water, met de molens aan de overkant.</p>
-    <p class="en">Gijs is from the Netherlands, Shiela from the Philippines. On 12 June 2027 we bring both families together on the Zaanse Schans, in a warehouse from 1700 on the water, with the windmills across the river.</p>
+    <div class="intro-top">
+      <div>
+        <h2>Wij gaan trouwen<small>We are getting married</small></h2>
+        <p>Gijs komt uit Nederland, Shiela uit de Filipijnen. Op 12 juni 2027 brengen we beide families samen op de Zaanse Schans, in het oude weeshuis van Westzaan uit 1717, aan de Zaan tussen de molens.</p>
+        <p class="en">Gijs is from the Netherlands, Shiela from the Philippines. On 12 June 2027 we bring both families together on the Zaanse Schans, in the old Westzaan orphanage from 1717, on the river Zaan among the windmills.</p>
+      </div>
+      <figure class="nina" id="nina">
+        <span class="woef" aria-hidden="true">woef!</span>
+        <svg viewBox="0 0 240 280" role="img" aria-label="Nina, onze cockerspaniël, met een kraag van pompons. Nina, our cocker spaniel, with a pompom collar.">
+          <defs>
+            <path id="n-ear" d="M86 80 C 70 78 60 88 56 104 C 52 124 46 146 40 168 C 34 190 33 206 41 215 Q 49 223 59 215 Q 68 225 78 215 Q 89 221 95 208 C 101 191 99 168 97 148 C 95 124 99 92 86 80 Z"/>
+            <path id="n-lock" d="M86 80 C 70 78 60 88 56 104 C 52 124 46 146 40 168 C 37 178 36 186 37 192 C 44 184 50 186 56 178 C 62 170 68 172 74 162 C 80 152 88 150 92 140 C 94 120 98 92 86 80 Z"/>
+            <path id="n-wave" d="M41 205 C 50 197 57 200 63 192 C 69 184 77 186 83 178 C 89 170 94 171 97 165 C 99 177 99 191 96 202 C 89 197 83 199 77 205 C 71 211 63 209 57 215 C 52 214 45 210 41 205 Z"/>
+          </defs>
+          <circle cx="114" cy="100" r="84" fill="#EFB7C7"/>
+          <ellipse cx="120" cy="270" rx="86" ry="7" fill="#2A2421" opacity=".12"/>
+          <g class="n-breath">
+            <g class="n-tail"><path d="M168 248 C 178 230 192 212 210 204 C 216 216 206 238 178 258 Z" fill="#E9A35C"/><path d="M190 220 C 197 214 204 208 210 204 C 213 211 208 220 200 226 C 198 222 194 220 190 220 Z" fill="#F3C98B"/></g>
+            <path d="M90 130 C 68 178 58 230 60 268 L 180 268 C 182 230 172 178 150 130 Z" fill="#E9A35C"/>
+            <path d="M60 268 C 54 236 68 214 88 214 C 102 214 108 232 106 268 Z M180 268 C 186 238 172 218 154 218 C 140 218 134 234 136 268 Z" fill="#DE9550"/>
+            <ellipse cx="74" cy="265" rx="18" ry="7" fill="#F3C98B"/>
+            <ellipse cx="166" cy="265" rx="16" ry="6.5" fill="#F3C98B"/>
+            <path d="M92 182 C 106 188 136 188 150 182 C 152 204 146 222 136 232 Q 130 226 124 234 Q 117 226 110 232 C 98 222 90 204 92 182 Z" fill="#F3C98B"/>
+            <path d="M96 200 C 96 222 97 244 98 262 L 116 262 C 117 244 117 222 117 200 Z M146 200 C 146 222 145 244 144 262 L 126 262 C 125 244 125 222 125 200 Z" fill="#F3C98B"/>
+            <ellipse cx="106" cy="263" rx="14" ry="8" fill="#F3C98B"/>
+            <ellipse cx="136" cy="263" rx="14" ry="8" fill="#F3C98B"/>
+            <g class="n-head">
+              <g class="n-pose" transform="rotate(-5 120 150)">
+                <g class="n-ear n-ear-l"><use href="#n-ear" fill="#E9A35C"/><use href="#n-lock" fill="#DE9550"/><use href="#n-wave" fill="#C8823E" transform="translate(0 -8)"/></g>
+                <g class="n-ear n-ear-r"><g transform="translate(250 0) scale(-1 1)"><use href="#n-ear" fill="#E9A35C"/><use href="#n-lock" fill="#DE9550"/><use href="#n-wave" fill="#C8823E" transform="translate(0 -8)"/></g></g>
+                <g class="n-collar">
+                  <circle cx="79" cy="175" r="8.5" fill="#2D5A3D"/>
+                  <circle cx="97" cy="181" r="8.5" fill="#C82A63"/>
+                  <circle cx="115" cy="184" r="8.5" fill="#F28C38"/>
+                  <circle cx="133" cy="184" r="8.5" fill="#EFB7C7"/>
+                  <circle cx="151" cy="181" r="8.5" fill="#F8F3EA"/>
+                  <circle cx="169" cy="175" r="8.5" fill="#2D5A3D"/>
+                </g>
+                <path d="M121 42 C 149 42 168 56 168 80 C 169 104 163 128 155 146 C 147 160 137 167 124 167 C 111 167 100 160 92 146 C 83 128 73 104 74 80 C 74 56 93 42 121 42 Z" fill="#E9A35C"/>
+                <path d="M115 92 C 119 88 129 88 133 92 C 141 104 152 114 153 132 C 154 150 144 165 124 168 C 104 165 94 150 95 132 C 96 114 107 104 115 92 Z" fill="#F3C98B"/>
+                <path d="M87 82 C 92 75 102 74 109 80 C 101 79 94 80 87 82 Z M161 84 C 156 77 146 76 139 82 C 147 81 154 82 161 84 Z" fill="#C8823E"/>
+                <g class="n-eyes"><ellipse cx="100" cy="95" rx="8" ry="8.5" fill="#2A2421"/><ellipse cx="148" cy="96" rx="7.5" ry="8.2" fill="#2A2421"/><circle cx="102.5" cy="92" r="2.3" fill="#FFF"/><circle cx="150.3" cy="93" r="2.2" fill="#FFF"/></g>
+                <path d="M108 152 Q 124 168 141 152 Q 135 163 124 164.5 Q 113 163 108 152 Z" fill="#2A2421"/>
+                <path d="M110 136 C 110 128 138 128 138 136 C 138 145 130 150 124 150 C 118 150 110 145 110 136 Z" fill="#2A2421"/>
+                <path d="M122.5 149 H 125.5 V 158 H 122.5 Z" fill="#2A2421"/>
+                <ellipse cx="117" cy="133" rx="4" ry="1.8" fill="#FFF" opacity=".45"/>
+                <g class="n-tongue"><path d="M108 154 C 101 158 98 170 102 176 C 106 181 114 179 116 172 C 117 166 117 160 116 156 Z" fill="#C82A63"/></g>
+              </g>
+            </g>
+          </g>
+        </svg>
+        <figcaption>Onze hond Nina komt ook. <span class="en">Our dog Nina is coming too.</span></figcaption>
+      </figure>
+    </div>
     <div class="facts">
       <div><b data-count="10400" data-suffix=" km">0</b><span>Manila, Zaandijk</span></div>
       <div><b data-count="2">0</b><span>families, twee landen, two countries</span></div>
@@ -315,15 +409,15 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
       <div class="n" id="days">000</div>
       <div>
         <p>dagen tot we trouwen. days until we marry.</p>
-        <p class="en">d'Swarte Walvis, Kalverringdijk 15, 1509 BT Zaandijk. Trein naar Zaandijk Zaanse Schans, 17 minuten vanaf Amsterdam Centraal, dan 15 minuten lopen. From Schiphol 25 minutes by taxi. We will share hotels in Zaandam and Amsterdam and help with visas and the trip.</p>
+        <p class="en">d'Swarte Walvis, Kalverringdijk 15, 1509 BT Zaandam, op de Zaanse Schans. Trein naar station Zaandijk Zaanse Schans, 17 minuten vanaf Amsterdam Centraal, dan 15 minuten lopen. From Schiphol about 25 to 35 minutes by taxi. We will share hotels in Zaandam and Amsterdam and help with visas and the trip.</p>
       </div>
     </div>
   </section>
 
   <section class="panel">
     <h2>Goed om te weten<small>Good to know</small></h2>
-    <p>Kinderen zijn welkom. Parkeren kan op het terrein van de Zaanse Schans, een paar minuten lopen. Jullie komst is het mooiste cadeau.</p>
-    <p class="en">Children are welcome. Parking is at the Zaanse Schans car park, a few minutes on foot. Your presence is the gift.</p>
+    <p>Kinderen zijn welkom. Parkeren kan op het parkeerterrein van de Zaanse Schans (Schansend 7, betaald), een paar minuten lopen. Jullie komst is het mooiste cadeau.</p>
+    <p class="en">Children are welcome. Parking is at the Zaanse Schans car park (Schansend 7, paid), a few minutes on foot. Your presence is the gift.</p>
   </section>
 
   <section class="panel">
@@ -398,6 +492,10 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
   var planes=[document.getElementById('plane-d'),document.getElementById('plane-m')];
   var lens=draws.map(function(p){var l=p.getTotalLength();p.style.strokeDasharray=l;return l});
   var panels=[].slice.call(document.querySelectorAll('.panel'));
+  // the first card (with Nina) can be taller than a phone screen: let it stick only once its bottom is in view
+  var first=panels[0];
+  function fitFirst(){first.style.top='';var t=parseFloat(getComputedStyle(first).top),room=innerHeight-first.offsetHeight-16;if(room<t)first.style.top=room+'px'}
+  fitFirst();addEventListener('resize',fitFirst);if(document.fonts)document.fonts.ready.then(function(){fitFirst();onScroll()});
   function onScroll(){
     var max=document.documentElement.scrollHeight-innerHeight,f=Math.min(1,Math.max(0,scrollY/Math.max(1,max)));
     draws.forEach(function(p,i){p.style.strokeDashoffset=lens[i]*(1-f)});
@@ -405,7 +503,7 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
     if(rm)return;
     panels.forEach(function(p,i){
       var next=panels[i+1];if(!next)return;
-      var r=next.getBoundingClientRect(),top=parseFloat(getComputedStyle(p).top);
+      var r=next.getBoundingClientRect(),top=Math.max(0,parseFloat(getComputedStyle(p).top));
       var prog=Math.min(1,Math.max(0,1-(r.top-top)/(innerHeight*.6)));
       p.style.transform='scale('+(1-prog*0.06)+') translateY('+(-prog*10)+'px)';p.style.filter='brightness('+(1-prog*0.22)+')';
     });
@@ -432,30 +530,59 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
     sv.innerHTML='<path d="M12 1 C 20 8, 22 20, 12 29 C 2 20, 4 8, 12 1 Z" fill="'+pcols[q%pcols.length]+'"/>';
     sv.style.setProperty('--x',((q*61)%100)+'%');sv.style.setProperty('--s',(14+((q*7)%14))+'px');sv.style.setProperty('--t',(12+((q*5)%10))+'s');sv.style.setProperty('--d',(-(q*1.7))+'s');pf.appendChild(sv)}
   document.getElementById('petals').appendChild(pf);
-  // ribbon garland
+  // ribbon garland: one svg path per ribbon, drawn each frame as a bending curve
   var g=document.querySelector('.garland'),cols=['#C82A63','#F28C38','#EFB7C7','#F8F3EA','#2D5A3D','#C82A63','#EFB7C7','#F28C38'];
-  var n=g.clientWidth<500?22:44,frag=document.createDocumentFragment();
-  for(var k=0;k<n;k++){var r=document.createElement('i');r.style.setProperty('--c',cols[k%cols.length]);r.style.setProperty('--h',(50+((k*37)%45))+'px');frag.appendChild(r)}
-  g.appendChild(frag);
-  // ribbons swing: a gust on scroll, a brush when a cursor or finger passes, spring back
-  var ribbons=[].slice.call(g.children),rs=ribbons.map(function(el,i){return{a:0,v:0,ph:i*0.7,x:0}}),on=false,lastY=scrollY,lpx=null;
-  function measure(){ribbons.forEach(function(el,i){var b=el.getBoundingClientRect();rs[i].x=b.left+b.width/2})}
+  var NS='http://www.w3.org/2000/svg',gsv=document.createElementNS(NS,'svg'),mob=matchMedia('(max-width:860px)');
+  var n=g.clientWidth<500?22:44,ribbons=[],hls=[],rs=[],SEG=[.4,.33,.27],on=false,lastY=scrollY,lpx=null,sw=12;
+  for(var k=0;k<n;k++){var pr=document.createElementNS(NS,'path'),ph=document.createElementNS(NS,'path'),c=cols[k%cols.length];
+    pr.setAttribute('class','rb');pr.style.stroke=c;ph.setAttribute('class','hl');ph.style.stroke='color-mix(in srgb,'+c+' 70%,#fff)';
+    gsv.appendChild(pr);gsv.appendChild(ph);ribbons.push(pr);hls.push(ph);
+    rs.push({a:0,v:0,ph:k*0.7,x:0,cx:0,h:50+((k*37)%45),L:0,b:[0,0],bv:[0,0]})}
+  g.appendChild(gsv);
+  // layout: same spacing as the old flex row (space-between inside the padding), lengths scaled on mobile
+  function layout(){var cs=getComputedStyle(g),pl=parseFloat(cs.paddingLeft),w=g.clientWidth-pl-parseFloat(cs.paddingRight),sc=mob.matches?.62:1;sw=mob.matches?8:12;
+    rs.forEach(function(r,i){r.cx=pl+sw/2+(n>1?i*(w-sw)/(n-1):0);r.L=r.h*sc-sw/2})}
+  function measure(){var gl=g.getBoundingClientRect().left;rs.forEach(function(r){r.x=gl+r.cx})}
+  // draw the chain (three segments, absolute angles in deg) as smooth cubic segments, plus a satin highlight offset to one side
+  function f1(x){return Math.round(x*10)/10}
+  function draw(r,i,th){var P=[[r.cx,7]],D=[],l=[],j,o=sw*.2,d='',e='';
+    for(j=0;j<3;j++){var t=th[j]*Math.PI/180;l.push(r.L*SEG[j]);P.push([P[j][0]-Math.sin(t)*l[j],P[j][1]+Math.cos(t)*l[j]])}
+    for(j=0;j<4;j++){var ta=(j==0?th[0]:j==3?th[2]:(th[j-1]+th[j])/2)*Math.PI/180;D.push([-Math.sin(ta),Math.cos(ta)])}
+    function pt(p,dir,s,off){return f1(p[0]+dir[0]*s+dir[1]*off)+' '+f1(p[1]+dir[1]*s-dir[0]*off)}
+    d='M'+pt(P[0],D[0],0,0);e='M'+pt(P[0],D[0],0,o);
+    for(j=0;j<3;j++){var q=l[j]/3;
+      d+='C'+pt(P[j],D[j],q,0)+' '+pt(P[j+1],D[j+1],-q,0)+' '+pt(P[j+1],D[j+1],0,0);
+      e+='C'+pt(P[j],D[j],q,o)+' '+pt(P[j+1],D[j+1],-q,o)+' '+pt(P[j+1],D[j+1],0,o)}
+    ribbons[i].setAttribute('d',d);hls[i].setAttribute('d',e)}
+  function still(){layout();rs.forEach(function(r,i){draw(r,i,[0,0,0])})}
+  still();
+  // ribbons sway: the top joint keeps the calibrated spring (gust on scroll, brush from a cursor or finger, flick on press),
+  // the two lower joints follow the one above with a softer, laggier spring so the ribbon bends and the tip trails and overshoots
+  var K=[.1,.07],DM=[.14,.12],GR=.003;
   function loop(t){
     if(!on)return;
-    rs.forEach(function(r,i){r.v+=-0.06*r.a-0.12*r.v;r.v=Math.max(-5,Math.min(5,r.v));r.a=Math.max(-28,Math.min(28,r.a+r.v));var idle=Math.sin(t/900+r.ph)*2.5;
-      ribbons[i].style.transform='rotate('+(r.a+idle)+'deg) scaleY('+(1+Math.min(.1,Math.abs(r.v)*0.015))+')'});
+    rs.forEach(function(r,i){r.v+=-0.06*r.a-0.12*r.v;r.v=Math.max(-5,Math.min(5,r.v));r.a=Math.max(-28,Math.min(28,r.a+r.v));
+      var a0=r.a+Math.sin(t/900+r.ph)*2.5,prev=a0,th=[a0];
+      for(var j=0;j<2;j++){var tgt=prev+Math.sin(t/(700-j*120)+r.ph*1.6+j)*(.8+j*.4);
+        r.bv[j]+=K[j]*(tgt-r.b[j])-GR*r.b[j]-DM[j]*r.bv[j];r.b[j]=Math.max(prev-35,Math.min(prev+35,r.b[j]+r.bv[j]));th.push(r.b[j]);prev=r.b[j]}
+      draw(r,i,th)});
     requestAnimationFrame(loop);
   }
   if(!rm){
-    new IntersectionObserver(function(es){var vis=es[0].isIntersecting;if(vis&&!on){on=true;measure();requestAnimationFrame(loop)}else if(!vis)on=false},{rootMargin:'80px'}).observe(g);
-    addEventListener('resize',measure);
+    new IntersectionObserver(function(es){var vis=es[0].isIntersecting;if(vis&&!on){on=true;layout();measure();requestAnimationFrame(loop)}else if(!vis)on=false},{rootMargin:'80px'}).observe(g);
+    addEventListener('resize',function(){layout();measure()});
     addEventListener('scroll',function(){var dy=scrollY-lastY;lastY=scrollY;if(!on)return;var w=Math.max(-20,Math.min(20,dy));
       rs.forEach(function(r,i){r.v+=w*0.05*(1+0.35*Math.sin(i*1.3))})},{passive:true});
     g.addEventListener('pointermove',function(e){var sp=lpx==null?0:Math.abs(e.clientX-lpx);lpx=e.clientX;
       rs.forEach(function(r){var d=e.clientX-r.x,R=110;if(Math.abs(d)<R){var f=1-Math.abs(d)/R;r.v+=Math.sign(d||1)*f*(0.5+Math.min(24,sp)*0.07)}})});
     g.addEventListener('pointerleave',function(){lpx=null});
     g.addEventListener('pointerdown',function(e){lpx=e.clientX;rs.forEach(function(r){var d=e.clientX-r.x;if(Math.abs(d)<140)r.v+=Math.sign(d||1)*(1-Math.abs(d)/140)*4})});
-  }
+  }else addEventListener('resize',still);
+  // Nina: a head tilt, a fast wag and a "woef" on hover or tap
+  var nina=document.getElementById('nina'),heyT;
+  function hey(){if(rm)return;clearTimeout(heyT);nina.classList.remove('hey');void nina.offsetWidth;nina.classList.add('hey');heyT=setTimeout(function(){nina.classList.remove('hey')},1500)}
+  nina.addEventListener('pointerenter',function(e){if(e.pointerType==='mouse')hey()});
+  nina.addEventListener('click',hey);
   // RSVP chips stamp "received"
   var ink=document.getElementById('ink');
   document.getElementById('chips').addEventListener('click',function(e){
