@@ -133,10 +133,9 @@ a{color:inherit}
 .count .n{font-family:Unbounded,sans-serif;font-weight:800;font-size:clamp(4rem,12vw,9rem);letter-spacing:-.05em;line-height:1;color:var(--orange)}
 
 /* Ribbon garland and colour swatches */
-.garland{position:absolute;left:0;right:0;top:0;height:110px;display:flex;justify-content:space-between;padding:0 24px;pointer-events:none;overflow:hidden}
+.garland{position:absolute;left:0;right:0;top:0;height:110px;display:flex;justify-content:space-between;padding:0 24px;overflow:hidden;touch-action:pan-y;cursor:grab}
 .garland::before{content:"";position:absolute;left:0;right:0;top:6px;height:2px;background:var(--ink);opacity:.5}
-.garland i{display:block;width:12px;height:var(--h,70px);border-radius:0 0 6px 6px;background:var(--c,var(--pink));transform-origin:top center;animation:sway 3.2s ease-in-out infinite alternate;animation-delay:var(--d,0s);margin-top:7px}
-@keyframes sway{from{transform:rotate(-7deg)}to{transform:rotate(7deg)}}
+.garland i{display:block;width:12px;height:var(--h,70px);border-radius:0 0 6px 6px;background:linear-gradient(90deg,var(--c,var(--pink)) 0 45%,color-mix(in srgb,var(--c,var(--pink)) 70%,#fff) 70%,var(--c,var(--pink)));transform-origin:top center;margin-top:7px;will-change:transform;transform:rotate(var(--r,0deg))}
 .wear{display:flex;flex-wrap:wrap;gap:12px;margin:8px 0 20px;list-style:none;padding:0}
 .wear span{display:inline-flex;align-items:center;gap:10px;padding:8px 16px 8px 8px;border-radius:999px;border:1.5px solid rgba(42,36,33,.15);font-style:italic}
 .wear b{width:32px;height:32px;border-radius:50%;background:var(--c);box-shadow:inset 0 0 0 2px rgba(255,255,255,.6)}
@@ -434,8 +433,27 @@ footer{text-align:center;padding:90px 20px 48px;color:var(--soft);font-style:ita
   // ribbon garland
   var g=document.querySelector('.garland'),cols=['#C82A63','#F28C38','#EFB7C7','#F8F3EA','#2D5A3D','#C82A63','#EFB7C7','#F28C38'];
   var n=g.clientWidth<500?22:44,frag=document.createDocumentFragment();
-  for(var k=0;k<n;k++){var r=document.createElement('i');r.style.setProperty('--c',cols[k%cols.length]);r.style.setProperty('--h',(50+((k*37)%45))+'px');r.style.setProperty('--d',(-(k*0.37)%3.2)+'s');frag.appendChild(r)}
+  for(var k=0;k<n;k++){var r=document.createElement('i');r.style.setProperty('--c',cols[k%cols.length]);r.style.setProperty('--h',(50+((k*37)%45))+'px');frag.appendChild(r)}
   g.appendChild(frag);
+  // ribbons swing: a gust on scroll, a brush when a cursor or finger passes, spring back
+  var ribbons=[].slice.call(g.children),rs=ribbons.map(function(el,i){return{a:0,v:0,ph:i*0.7,x:0}}),on=false,lastY=scrollY,lpx=null;
+  function measure(){ribbons.forEach(function(el,i){var b=el.getBoundingClientRect();rs[i].x=b.left+b.width/2})}
+  function loop(t){
+    if(!on)return;
+    rs.forEach(function(r,i){r.v+=-0.07*r.a-0.08*r.v;r.a+=r.v;var idle=Math.sin(t/900+r.ph)*2.5;
+      ribbons[i].style.transform='rotate('+(r.a+idle)+'deg) scaleY('+(1+Math.min(.22,Math.abs(r.v)*0.025))+')'});
+    requestAnimationFrame(loop);
+  }
+  if(!rm){
+    new IntersectionObserver(function(es){var vis=es[0].isIntersecting;if(vis&&!on){on=true;measure();requestAnimationFrame(loop)}else if(!vis)on=false},{rootMargin:'80px'}).observe(g);
+    addEventListener('resize',measure);
+    addEventListener('scroll',function(){var dy=scrollY-lastY;lastY=scrollY;if(!on)return;var w=Math.max(-28,Math.min(28,dy));
+      rs.forEach(function(r,i){r.v+=w*0.18*(1+0.35*Math.sin(i*1.3))})},{passive:true});
+    g.addEventListener('pointermove',function(e){var sp=lpx==null?0:Math.abs(e.clientX-lpx);lpx=e.clientX;
+      rs.forEach(function(r){var d=e.clientX-r.x,R=110;if(Math.abs(d)<R){var f=1-Math.abs(d)/R;r.v+=Math.sign(d||1)*f*(4+Math.min(30,sp)*0.5)}})});
+    g.addEventListener('pointerleave',function(){lpx=null});
+    g.addEventListener('pointerdown',function(e){lpx=e.clientX;rs.forEach(function(r){var d=e.clientX-r.x;if(Math.abs(d)<140)r.v+=Math.sign(d||1)*(1-Math.abs(d)/140)*18})});
+  }
   // RSVP chips stamp "received"
   var ink=document.getElementById('ink');
   document.getElementById('chips').addEventListener('click',function(e){
